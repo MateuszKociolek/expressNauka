@@ -2,8 +2,10 @@ var express = require('express');
 var app = express();
 var path = require("path")
 
+app.use(express.urlencoded({ extended: true }));
+
 app.get("/", (req, res) => {
-    res.send("Hello World!");
+    res.sendFile(__dirname + "/index.html")
 });
 
 app.get('/users/:id', (req, res) => {
@@ -11,14 +13,17 @@ app.get('/users/:id', (req, res) => {
     res.send(`Hello user: ${userId}`);
 });
 
-app.get("/login/:username/:password", (req, res) => {
-    const username = req.params.username;
-    const password = req.params.password;
+app.post("/login", (req, res) => {
+    const username = req.body.username;
+    const password = req.body.password;
+    console.log(username, password);
     if(username == "koci" && password == "haslo0"){
-        console.log("Zalogowano")
-        res.sendFile(path.join(__dirname, "./zalogowanie.html"))
+        console.log("Zalogowano");
+        // res.send("All good!");
+        res.sendFile(__dirname + '/zalogowanie.html');
         // res.send(`Hello user ${username}`);
     }else{
+        console.log("złe dane");
         res.send("Invalid username or password");
     }
 });

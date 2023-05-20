@@ -1,5 +1,4 @@
-// document.getElementById("myForm").addEventListener('submit', 
-function signin() {
+document.getElementById("myForm").addEventListener('submit', function(e) {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
@@ -19,4 +18,4 @@ function signin() {
     .catch(function(error) {
         console.log(error)
     })
-};
+});

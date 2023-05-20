@@ -8,10 +8,10 @@
     <script src="script.js" defer></script>
 </head>
 <body>
-    <form id="myForm">
-        <input type="text" id="username" placeholder="Username">
-        <input type="password" id="password" placeholder="Password">
-        <button id="log" onclick="signin()">Sign in</button>
+    <form action="/login" method="post" id="myForm">
+        <input type="text" name="username" id="username" placeholder="Username">
+        <input type="password" name="password" id="password" placeholder="Password">
+        <button id="log" type="submit">Sign in</button>
     </form>
 </body>
 </html>
