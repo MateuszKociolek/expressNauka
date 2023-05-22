@@ -1,6 +1,9 @@
-var express = require('express');
+var express = require('../express');
 var app = express();
-var mysql = require('mysql');
+var mysql = require('../mysql');
+
+//Routes
+const createUsersRouter = require("./routes/createUsers");
 
 const connection = mysql.createConnection({
     host: 'localhost',
@@ -66,27 +69,7 @@ app.post("/login", (req, res) => {
         })
 });
 
-app.get('/createAccount', (req,res) => {
-    console.log("Tworzenie konta")
-    res.sendFile(__dirname + "/createAccount.html");
-})
 
-app.post('/createNewAccount', (req, res)=>{
-    const newUser = req.body.newUser;
-    const newPassword = req.body.newPassword;
-
-    const query = `insert into users (username, password) values ('${newUser}', '${newPassword}')`;
-
-    connection.query(query, (err, results, fields) => {
-        if(err){
-            console.log("Error with creating new users");
-            return res.status(500).json({error:"error with users"});
-        }else{
-            console.log("Create new account: OK");
-            res.send("All good!");
-        }
-    });
-});
 
 app.listen(3000 , () => {
     console.log("Serwer start at port 3000");
