@@ -9,6 +9,11 @@ const connection = mysql.createConnection({
     database: 'konta'
 });
 
+connection.connect(function(err){
+    if (err) throw err;
+    console.log("Connected!");
+});
+
 app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
@@ -39,41 +44,26 @@ app.get('/allusers', (req, res) => {
 app.post("/login", (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
-    console.log(username, password);
+    // console.log(username, password);
 
-    connection.connect((error) => {
-        if(error){
-            console.log("Error connection to db with users");
-            console.log(error)
-            return;
-        }
-        
         const query = `select username, password from users where username = '${username}' and password = '${password}'`;
 
         connection.query(query, (err, results, fields) => {
+
             if(err){
                 console.log("Error with login to users");
                 return res.status(500).json({error:"error with users"});
             }
-            if (results != 0) {
+            if (results.length != 0) {
                 console.log("Pomyślnie zalogowano");
                 res.sendFile(__dirname + '/zalogowanie.html');
             }else{
-                console.log("Złe logowanie")
-            }
+                console.log("Incorrect!")
+                res.redirect('/')
+            }            
+            // connection.end();
             
-            connection.end();
         })
-    })
-
-
-    // if(username == "koci" && password == "haslo0"){
-    //     console.log("Zalogowano");
-    //     res.sendFile(__dirname + '/zalogowanie.html');
-    // }else{
-    //     console.log("złe dane");
-    //     res.send("Invalid username or password");
-    // }
 });
 
 app.listen(3000 , () => {
