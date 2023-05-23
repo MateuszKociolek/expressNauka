@@ -1,12 +1,17 @@
-const express = require('../../express');
+const express = require('express');
 const router = express.Router();
+const path = require('path');
 
-app.get('/createAccount', (req,res) => {
+//db
+const connection = require("../db/dbConfig");
+
+router.get('/', (req,res) => {
     console.log("Tworzenie konta")
-    res.sendFile(__dirname + "/createAccount.html");
+    const filePath = path.resolve(__dirname, "..", "..", "createAccount.html");
+    res.sendFile(filePath);
 })
 
-app.post('/createNewAccount', (req, res)=>{
+router.post('/', (req, res)=>{
     const newUser = req.body.newUser;
     const newPassword = req.body.newPassword;
 
