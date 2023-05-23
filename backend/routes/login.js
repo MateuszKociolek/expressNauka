@@ -22,7 +22,7 @@ router.post("/", (req, res) => {
             }
             if (results.length != 0) {
                 console.log("Pomyślnie zalogowano");
-                const filePath = path.resolve(__dirname, "..", "..", "zalogowanie.html");
+                const filePath = path.resolve(__dirname, "..", "..","front", "mainPage.html");
                 res.sendFile(filePath);
             }else{
                 console.log("Incorrect!")

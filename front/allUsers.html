@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wszyscy użytkownicy</title>
+    <!-- <script src="allUsr.js" defer></script> -->
+</head>
+<body>
+    <h3>Wszyscy użytkownicy</h3>
+    <button onclick="showData()">Pokaż</button>
+    <table id="users">
+            <tr>
+                <th>Usernam</th>
+                <th>Password</th>
+            </tr>
+    </table>
+</body>
+<script>
+    function showData(){
+        fetch("http://localhost:3000/showAllUsers")
+        .then(res => res.json())
+        .then(data => {
+
+            const table = document.querySelector('#users');
+            // console.log(data);
+            data.forEach(elem => {
+                var row = table.insertRow(table.rows.length);
+                var cell1 = row.insertCell(0);
+                var cell2 = row.insertCell(1);
+                cell1.innerHTML = elem['username'];
+                cell2.innerHTML = elem['password'];
+            });
+
+        })
+        .catch(err =>{
+            console.log("Error:",err);
+        })
+    }
+</script>
+</html>

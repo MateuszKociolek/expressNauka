@@ -7,7 +7,7 @@ const connection = require("../db/dbConfig");
 
 router.get('/', (req,res) => {
     console.log("Tworzenie konta")
-    const filePath = path.resolve(__dirname, "..", "..", "createAccount.html");
+    const filePath = path.resolve(__dirname, "..", "..","front", "createAccount.html");
     res.sendFile(filePath);
 })
 
