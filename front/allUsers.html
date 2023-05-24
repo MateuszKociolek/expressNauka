@@ -9,20 +9,20 @@
 </head>
 <body>
     <h3>Wszyscy użytkownicy</h3>
-    <button onclick="showData()">Pokaż</button>
+    <!-- <button onclick="showData()">Pokaż</button>     -->
     <table id="users">
             <tr>
-                <th>Usernam</th>
+                <th>Username</th>
                 <th>Password</th>
             </tr>
     </table>
 </body>
 <script>
-    function showData(){
+    document.addEventListener('DOMContentLoaded', function(e){
         fetch("http://localhost:3000/showAllUsers")
         .then(res => res.json())
         .then(data => {
-
+    
             const table = document.querySelector('#users');
             // console.log(data);
             data.forEach(elem => {
@@ -32,11 +32,15 @@
                 cell1.innerHTML = elem['username'];
                 cell2.innerHTML = elem['password'];
             });
-
+    
         })
         .catch(err =>{
             console.log("Error:",err);
         })
-    }
+
+    });
+
+    // function showData(){
+    // }
 </script>
 </html>
